@@ -5,6 +5,18 @@
 
 import { extractNumber } from './numberParser'
 
+const NUMBER_WORDS = [
+    'nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan',
+    'sembilan', 'sepuluh', 'sebelas', 'belas', 'puluh', 'ratus', 'ribu', 'se',
+]
+
+function hasNumberToken(tokens) {
+    return tokens.some(token => {
+        const normalized = token.toLowerCase().replace(/[^\w]/g, '')
+        return /^\d+$/.test(normalized) || NUMBER_WORDS.includes(normalized)
+    })
+}
+
 /**
  * Parse a speech transcript into name and score components.
  *
@@ -33,11 +45,6 @@ export function parseSpeechInput(transcript) {
     }
 
     // Strategy 2: scan tokens for the first number-related word
-    const NUMBER_WORDS = [
-        'nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan',
-        'sembilan', 'sepuluh', 'sebelas', 'belas', 'puluh', 'ratus', 'ribu', 'se',
-    ]
-
     const tokens = clean.split(/\s+/)
     let splitIndex = -1
 
@@ -70,4 +77,35 @@ export function parseSpeechInput(transcript) {
     }
 
     return null
+}
+
+/**
+ * Explain why a transcript could not be parsed.
+ * Used for user-facing warnings and failure notification sounds.
+ *
+ * @param {string} transcript
+ * @returns {string}
+ */
+export function getSpeechInputIssue(transcript) {
+    if (!transcript || transcript.trim().length === 0) {
+        return 'Suara belum terdengar'
+    }
+
+    const clean = transcript.trim()
+    const tokens = clean.split(/\s+/)
+    const number = extractNumber(clean)
+
+    if (tokens.length === 1 && number !== null) {
+        return 'Nama siswa belum terdengar'
+    }
+
+    if (!hasNumberToken(tokens) && number === null) {
+        return 'Nilai belum terdengar'
+    }
+
+    if (tokens.length < 2) {
+        return 'Nama siswa atau nilai belum lengkap'
+    }
+
+    return 'Format tidak dikenali'
 }

@@ -4,13 +4,19 @@ import { useStorage } from '../hooks/useStorage'
 import { useLang } from '../contexts/LangContext'
 import { useSpeech, isSpeechSupported } from '../hooks/useSpeech'
 import { useFuzzyMatch } from '../hooks/useFuzzyMatch'
-import { parseSpeechInput } from '../utils/speechParser'
+import { getSpeechInputIssue, parseSpeechInput } from '../utils/speechParser'
+import {
+    loadNotificationSoundSettings,
+    playNotificationSound,
+    saveNotificationSoundSettings,
+} from '../utils/notificationSounds'
 import MicButton from '../components/session/MicButton'
 import Waveform from '../components/session/Waveform'
 import TranscriptDisplay from '../components/session/TranscriptDisplay'
 import StudentRoster from '../components/session/StudentRoster'
 import AmbiguityModal from '../components/session/AmbiguityModal'
 import SessionLog from '../components/session/SessionLog'
+import NotificationSoundMenu from '../components/session/NotificationSoundMenu'
 import './SessionPage.css'
 
 const IconMic = () => (
@@ -45,8 +51,11 @@ export default function SessionPage() {
     const [lastRecorded, setLastRecorded] = useState(null)
     const [logEntries, setLogEntries] = useState([])
     const [ambiguity, setAmbiguity] = useState(null)
+    const [soundSettings, setSoundSettings] = useState(() => loadNotificationSoundSettings())
 
     const lastRecordedTimerRef = useRef(null)
+    const lastResultTimerRef = useRef(null)
+    const soundSettingsRef = useRef(soundSettings)
 
     const lastScrollTopRef = useRef(0)
     const rosterRef = useRef(null)
@@ -62,6 +71,11 @@ export default function SessionPage() {
     }, [headerVisible])
 
     const { search } = useFuzzyMatch(kelas?.siswa || [])
+
+    useEffect(() => {
+        soundSettingsRef.current = soundSettings
+        saveNotificationSoundSettings(soundSettings)
+    }, [soundSettings])
 
     // Load kelas from DB
     const loadKelas = useCallback(async () => {
@@ -88,6 +102,37 @@ export default function SessionPage() {
         setKelas(k)
     }, [id, getKelas])
 
+    const setTimedResult = useCallback((result, timeout = 3500) => {
+        setLastResult(result)
+        if (lastResultTimerRef.current) clearTimeout(lastResultTimerRef.current)
+        lastResultTimerRef.current = setTimeout(() => setLastResult(null), timeout)
+    }, [])
+
+    const updateSoundSettings = useCallback((updates) => {
+        setSoundSettings(prev => ({ ...prev, ...updates }))
+    }, [])
+
+    const playFeedbackSound = useCallback((kind) => {
+        const settings = soundSettingsRef.current
+        if (kind === 'success' && settings.successEnabled) {
+            playNotificationSound('success', settings.successSound)
+        }
+        if (kind === 'failure' && settings.failureEnabled) {
+            playNotificationSound('failure', settings.failureSound)
+        }
+    }, [])
+
+    const previewSound = useCallback((kind) => {
+        const settings = soundSettingsRef.current
+        const sound = kind === 'success' ? settings.successSound : settings.failureSound
+        playNotificationSound(kind, sound)
+    }, [])
+
+    const showFailure = useCallback((raw, reason) => {
+        setTimedResult({ success: false, raw, reason }, 4500)
+        playFeedbackSound('failure')
+    }, [playFeedbackSound, setTimedResult])
+
     // Record a grade for a resolved student
     const recordGrade = useCallback(async (student, score) => {
         await setNilai(id, mapel, student, score)
@@ -102,9 +147,9 @@ export default function SessionPage() {
         if (lastRecordedTimerRef.current) clearTimeout(lastRecordedTimerRef.current)
         lastRecordedTimerRef.current = setTimeout(() => setLastRecorded(null), 2000)
 
-        setLastResult({ success: true, student, score })
-        setTimeout(() => setLastResult(null), 3000)
-    }, [id, mapel, setNilai, refreshKelas])
+        setTimedResult({ success: true, student, score }, 3000)
+        playFeedbackSound('success')
+    }, [id, mapel, setNilai, refreshKelas, playFeedbackSound, setTimedResult])
 
     // Handle voice result
     const handleResult = useCallback((transcript) => {
@@ -112,7 +157,7 @@ export default function SessionPage() {
         const parsed = parseSpeechInput(transcript)
 
         if (!parsed) {
-            setLastResult({ success: false, raw: transcript, reason: 'Format tidak dikenali' })
+            showFailure(transcript, getSpeechInputIssue(transcript))
             return
         }
 
@@ -120,7 +165,7 @@ export default function SessionPage() {
         const matches = search(rawName)
 
         if (matches.length === 0) {
-            setLastResult({ success: false, raw: transcript, reason: `Nama "${rawName}" tidak ditemukan` })
+            showFailure(transcript, `Nama "${rawName}" tidak ditemukan`)
             return
         }
 
@@ -134,11 +179,12 @@ export default function SessionPage() {
         const secondScore = matches[1].score
         if (matches.length > 1 && (secondScore - topScore) < 0.15) {
             setAmbiguity({ candidates: matches, rawName, score })
+            showFailure(transcript, `Nama "${rawName}" ambigu, pilih kandidat`)
             return
         }
 
         recordGrade(matches[0].item, score)
-    }, [search, recordGrade])
+    }, [search, recordGrade, showFailure])
 
     const { isListening, toggle, supported } = useSpeech({
         onResult: handleResult,
@@ -220,6 +266,7 @@ export default function SessionPage() {
     // Cleanup timer on unmount
     useEffect(() => () => {
         if (lastRecordedTimerRef.current) clearTimeout(lastRecordedTimerRef.current)
+        if (lastResultTimerRef.current) clearTimeout(lastResultTimerRef.current)
     }, [])
 
     // Redirect to setup if mapel param is missing
@@ -288,14 +335,19 @@ export default function SessionPage() {
                 className={`session-header${headerVisible ? '' : ' session-header-hidden'}`}
                 style={{ marginTop: headerVisible ? '0px' : `-${headerHeight}px` }}
             >
-                <div className="flex items-center gap-4">
+                <div className="session-header-main flex items-center gap-4">
                     <button className="btn btn-secondary btn-sm" onClick={() => { if (isListening) toggle(); navigate(`/setup/${id}`) }}>{ls.back}</button>
                     <div>
                         <h1 style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)' }}><IconMic /> {mapel}</h1>
                         <p className="session-class-name">{kelas.nama}</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-6">
+                <div className="session-header-actions flex items-center gap-6">
+                    <NotificationSoundMenu
+                        settings={soundSettings}
+                        onChange={updateSoundSettings}
+                        onPreview={previewSound}
+                    />
                     <div className="session-progress">
                         <span className="session-progress-count">{progress}<span>/{total}</span></span>
                         <span className="session-progress-label">{ls.recorded}</span>

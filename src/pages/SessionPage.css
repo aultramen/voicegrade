@@ -32,6 +32,17 @@
   pointer-events: none;
 }
 
+.session-header-main,
+.session-header-actions {
+  min-width: 0;
+}
+
+.session-header-main h1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .session-class-name {
   font-size: 0.85rem;
   color: var(--tx-secondary);
@@ -132,6 +143,20 @@
 }
 
 /* Responsive */
+@media (max-width: 980px) {
+  .session-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+
+  .session-header-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: var(--sp-3);
+  }
+}
+
 @media (max-width: 768px) {
   .session-body {
     grid-template-columns: 1fr;
@@ -147,5 +172,23 @@
   .session-roster-panel {
     border-left: none;
     margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .session-header {
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  .session-header-main {
+    width: 100%;
+  }
+
+  .session-header-actions {
+    align-items: stretch;
+  }
+
+  .session-progress {
+    margin-left: auto;
   }
 }
