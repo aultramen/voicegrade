@@ -1,0 +1,23 @@
+/* ── ExportBar Minimalist ─────────────────────────────────── */
+.export-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-6);
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--bd-strong);
+}
+
+.export-label {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.85rem;
+    color: var(--tx-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.export-buttons {
+    display: flex;
+    gap: var(--sp-3);
+}

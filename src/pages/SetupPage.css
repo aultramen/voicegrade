@@ -1,0 +1,29 @@
+/* ── Setup Page ───────────────────────────────────────────── */
+.setup-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-base);
+}
+
+.setup-content {
+    flex: 1;
+    padding: var(--sp-8) var(--sp-6);
+}
+
+.setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-6);
+    align-items: start;
+}
+
+.setup-panel {
+    height: fit-content;
+}
+
+@media (max-width: 768px) {
+    .setup-grid {
+        grid-template-columns: 1fr;
+    }
+}

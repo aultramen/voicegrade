@@ -1,0 +1,124 @@
+/* ── TranscriptDisplay Minimalist ────────────────────────── */
+.transcript-display {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-base);
+    border: 2px solid var(--bd-strong);
+    padding: var(--sp-4) var(--sp-6);
+    width: 100%;
+}
+
+/* Interim */
+.transcript-interim {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+}
+
+.transcript-listening-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--tx-primary);
+    flex-shrink: 0;
+    /* Static square dot for minimalism instead of pulsing circle */
+}
+
+.transcript-interim-text {
+    font-size: 0.95rem;
+    color: var(--tx-secondary);
+    font-style: italic;
+}
+
+/* Result */
+.transcript-result {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    width: 100%;
+    animation: slideUp 0.15s ease;
+}
+
+.transcript-success {
+    color: var(--tx-primary);
+}
+
+.transcript-error {
+    color: var(--clr-danger);
+}
+
+.transcript-result-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid currentColor;
+}
+
+.transcript-success .transcript-result-icon {
+    background: var(--bg-surface);
+}
+
+.transcript-error .transcript-result-icon {
+    background: var(--bg-base);
+}
+
+.transcript-result-body {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.transcript-name {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--tx-primary);
+}
+
+.transcript-arrow {
+    color: var(--tx-muted);
+    display: flex;
+    align-items: center;
+}
+
+.transcript-score {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--tx-primary);
+}
+
+.transcript-raw {
+    font-size: 0.9rem;
+    color: var(--tx-secondary);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.transcript-reason {
+    font-size: 0.8rem;
+    color: var(--clr-danger);
+    width: 100%;
+    padding: var(--sp-2);
+    border: 1px solid var(--clr-danger);
+    background: var(--bg-base);
+}
+
+/* Placeholder */
+.transcript-placeholder {
+    font-size: 0.9rem;
+    color: var(--tx-muted);
+    text-align: center;
+}
+
+.transcript-placeholder em {
+    color: var(--tx-primary);
+    font-style: normal;
+    font-weight: 700;
+}

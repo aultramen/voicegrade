@@ -1,0 +1,79 @@
+/* ── StudentRoster Minimalist ────────────────────────────── */
+.roster {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+}
+
+.roster-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--sp-3);
+    border-bottom: 2px solid var(--bd-strong);
+}
+
+.roster-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--tx-primary);
+    text-transform: uppercase;
+}
+
+.roster-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.roster-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--bd-default);
+    transition: all 0s;
+}
+
+.roster-item:last-child {
+    border-bottom: none;
+}
+
+.roster-item-graded {
+    background: transparent;
+}
+
+.roster-item-flash {
+    background: var(--tx-primary);
+    color: var(--bg-base);
+}
+
+.roster-name {
+    font-size: 0.9rem;
+    color: var(--tx-secondary);
+    font-weight: 500;
+}
+
+.roster-item-graded .roster-name {
+    color: var(--tx-primary);
+    font-weight: 700;
+}
+
+.roster-item-flash .roster-name,
+.roster-item-flash .roster-score {
+    color: var(--bg-base);
+}
+
+.roster-score {
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--tx-primary);
+    min-width: 36px;
+    text-align: right;
+}
+
+.roster-empty {
+    font-size: 0.85rem;
+    color: var(--tx-disabled);
+}

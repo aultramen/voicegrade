@@ -1,0 +1,129 @@
+.backup-menu-wrapper {
+    position: relative;
+}
+
+/* Dropdown */
+.backup-dropdown-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+}
+
+.backup-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--bg-surface);
+    border: 1px solid var(--bd-default);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    z-index: 201;
+    min-width: 240px;
+    overflow: hidden;
+    animation: slideDown 0.15s ease;
+}
+
+.backup-dropdown-header {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--tx-muted);
+    padding: var(--sp-2) var(--sp-4) var(--sp-1);
+}
+
+.backup-item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    padding: var(--sp-3) var(--sp-4);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    text-align: left;
+    transition: var(--transition);
+}
+
+.backup-item:hover {
+    background: var(--bg-surface-2);
+}
+
+.backup-item-danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.backup-item-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.backup-item-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--tx-primary);
+}
+
+.backup-item-danger .backup-item-label {
+    color: var(--clr-danger);
+}
+
+.backup-item-desc {
+    font-size: 0.75rem;
+    color: var(--tx-muted);
+    margin-top: 1px;
+}
+
+/* Toast notification */
+.backup-toast {
+    position: fixed;
+    bottom: var(--space-6);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 9999;
+    animation: slideUp 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    box-shadow: var(--shadow-lg);
+    white-space: nowrap;
+}
+
+.backup-toast-success {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.backup-toast-error {
+    background: var(--danger-bg);
+    color: var(--danger, #ef4444);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.backup-toast-loading {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-hover);
+}
+
+.backup-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

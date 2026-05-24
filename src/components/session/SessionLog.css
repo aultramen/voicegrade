@@ -1,0 +1,177 @@
+.session-log {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    /* never grow — stays fixed at bottom */
+    min-height: 52px;
+}
+
+.log-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+}
+
+.log-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.log-count {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: var(--bg-input);
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+}
+
+/* Scrollable entries area */
+.log-entries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    flex: 1;
+    align-items: center;
+    max-height: 80px;
+    /* ~2 rows of pills */
+    overflow-y: auto;
+    padding: 2px 0;
+}
+
+.log-entries::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+}
+
+.log-entries::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.log-entries::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 2px;
+}
+
+.log-empty {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.log-overflow {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.log-entry {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.log-delete {
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.log-entry:hover .log-delete {
+    opacity: 1;
+}
+
+.log-pill {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 4px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font);
+}
+
+.log-pill:hover {
+    border-color: var(--border-accent);
+    background: var(--accent-glow);
+}
+
+.log-pill-name {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+.log-pill-score {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.log-edit-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    animation: slideDown 0.15s ease;
+}
+
+.log-edit-name {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.log-edit-input {
+    width: 72px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+}
+
+/* Page size selector */
+.log-pager {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 2px;
+}
+
+.log-pager-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border: none;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-family: var(--font);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    line-height: 1.4;
+}
+
+.log-pager-btn:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+.log-pager-btn.active {
+    background: var(--accent-glow);
+    color: var(--accent-light);
+    border: 1px solid var(--border-accent);
+}

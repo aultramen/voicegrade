@@ -1,0 +1,21 @@
+/* ── Waveform ─────────────────────────────────────────────── */
+.waveform {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 40px;
+}
+
+.waveform-bar {
+    width: 5px;
+    min-height: 6px;
+    background: var(--bd-strong);
+    border-radius: 100px;
+    transform: scaleY(0.3);
+    transition: background 0.25s ease;
+}
+
+.waveform-active .waveform-bar {
+    background: var(--tx-primary);
+    animation: wave-bounce 1s ease-in-out infinite;
+}

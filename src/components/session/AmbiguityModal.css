@@ -1,0 +1,192 @@
+/* ── AmbiguityModal ───────────────────────────────────────── */
+
+/* Override modal-overlay to add strong orange accent border for urgency */
+.modal-overlay:has(.ambiguity-modal) {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.ambiguity-modal {
+    background: var(--bg-base);
+    border: 3px solid var(--tx-primary);
+    border-radius: 0;
+    padding: var(--sp-6);
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    animation: slideUp 0.15s ease;
+}
+
+[data-theme='dark'] .ambiguity-modal {
+    box-shadow: 8px 8px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ── Header ── */
+.ambiguity-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+}
+
+.ambiguity-icon-wrap {
+    width: 44px;
+    height: 44px;
+    background: var(--tx-primary);
+    color: var(--bg-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ambiguity-header-text {
+    flex: 1;
+}
+
+.ambiguity-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--tx-primary);
+    margin-bottom: 3px;
+}
+
+.ambiguity-subtitle {
+    font-size: 0.82rem;
+    color: var(--tx-muted);
+}
+
+.ambiguity-raw {
+    color: var(--clr-primary);
+    font-weight: 700;
+    font-style: normal;
+}
+
+.ambiguity-score-inline {
+    color: var(--clr-cta);
+    font-weight: 700;
+}
+
+.ambiguity-close {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--bd-default);
+    background: var(--bg-muted);
+    color: var(--tx-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--ease);
+}
+
+.ambiguity-close:hover {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: var(--clr-danger);
+    color: var(--clr-danger);
+}
+
+/* ── Instruction ── */
+.ambiguity-instruction {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--tx-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-bottom: var(--sp-1);
+    border-bottom: 1px solid var(--bd-default);
+}
+
+/* ── Candidate Buttons ── */
+.ambiguity-candidates {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+}
+
+.ambiguity-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--bg-surface);
+    border: 2px solid var(--bd-strong);
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0s;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+.ambiguity-btn:hover {
+    background: var(--tx-primary);
+    border-color: var(--tx-primary);
+}
+
+.ambiguity-btn:hover .ambiguity-student-name {
+    color: var(--bg-base);
+}
+
+.ambiguity-btn:focus-visible {
+    outline: 2px solid var(--tx-primary);
+    outline-offset: 2px;
+}
+
+.ambiguity-btn-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-base);
+    border: 1.5px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tx-muted);
+    flex-shrink: 0;
+}
+
+.ambiguity-student-name {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--tx-primary);
+}
+
+.ambiguity-score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--tx-primary);
+    background: var(--bg-base);
+    border: 2px solid var(--tx-primary);
+    flex-shrink: 0;
+}
+
+/* ── Footer ── */
+.ambiguity-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--bd-default);
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+}
+
+.ambiguity-hint {
+    font-size: 0.78rem;
+    color: var(--tx-muted);
+    flex: 1;
+}
+
+.ambiguity-hint em {
+    color: var(--clr-primary);
+    font-style: normal;
+    font-weight: 600;
+}

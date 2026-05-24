@@ -1,0 +1,151 @@
+/* ── Session Page ─ Minimalist ────────────────────────────── */
+.session-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-base);
+}
+
+/* header transition */
+.session-header {
+  transition: margin-top 0.25s ease, opacity 0.25s ease;
+  background: var(--bg-surface);
+  border-bottom: 2px solid var(--bd-strong);
+  padding: var(--sp-4) var(--sp-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.session-header h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--tx-primary);
+  margin: 0;
+}
+
+.session-header.session-header-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.session-class-name {
+  font-size: 0.85rem;
+  color: var(--tx-secondary);
+  margin-top: 1px;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.session-progress {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.session-progress-count {
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--tx-primary);
+  line-height: 1;
+}
+
+.session-progress-count span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--tx-secondary);
+}
+
+.session-progress-label {
+  font-size: 0.75rem;
+  color: var(--tx-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* Unsupported banner */
+.session-unsupported {
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--clr-danger);
+  padding: var(--sp-3) var(--sp-6);
+  font-size: 0.85rem;
+  color: var(--clr-danger);
+  text-align: center;
+}
+
+/* Body */
+.session-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  gap: 0;
+}
+
+/* Voice Panel */
+.session-voice-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-8);
+  padding: var(--sp-8);
+  border-right: 1px solid var(--bd-default);
+  background: var(--bg-base);
+}
+
+/* Mic Area */
+.session-mic-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.session-mic-hint {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--tx-secondary);
+  text-align: center;
+}
+
+/* Transcript Area */
+.session-transcript-area {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Roster Panel */
+.session-roster-panel {
+  overflow-y: auto;
+  border: none;
+  border-left: 1px solid var(--bd-default);
+  background: var(--bg-surface);
+  padding: var(--sp-6);
+  margin-left: -1px;
+  /* collapse border */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .session-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .session-voice-panel {
+    padding: var(--sp-5);
+    border-right: none;
+    border-bottom: 1px solid var(--bd-default);
+  }
+
+  .session-roster-panel {
+    border-left: none;
+    margin-left: 0;
+  }
+}

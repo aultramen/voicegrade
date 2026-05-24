@@ -1,0 +1,231 @@
+/* ── GradeTable Minimalist ────────────────────────────────── */
+.grade-table-wrapper {
+    position: relative;
+    overflow: auto;
+    flex: 1;
+    border: 2px solid var(--bd-strong);
+    margin: var(--sp-4) var(--sp-6) var(--sp-6);
+}
+
+.grade-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+/* Header */
+.grade-th {
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--bg-surface);
+    color: var(--tx-primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    border-bottom: 2px solid var(--bd-strong);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.grade-th-name {
+    text-align: left;
+    min-width: 180px;
+}
+
+/* Rows */
+.grade-row:nth-child(even) .grade-td {
+    background: var(--bg-surface-2);
+}
+
+.grade-row:hover .grade-td {
+    background: var(--bg-muted);
+}
+
+.grade-row:not(:last-child) .grade-td {
+    border-bottom: 1px solid var(--bd-default);
+}
+
+.grade-td {
+    padding: var(--sp-1) var(--sp-2);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.grade-td-num {
+    color: var(--tx-muted);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 40px;
+}
+
+.grade-td-name {
+    text-align: left;
+    padding-left: var(--sp-4);
+    color: var(--tx-primary);
+    font-weight: 600;
+}
+
+/* Cell */
+.grade-td-cell {
+    padding: 2px;
+    min-width: 72px;
+}
+
+/* Strict stark backgrounds instead of opacities for empty/filled */
+.grade-td-cell.filled {
+    font-weight: 800;
+}
+
+.grade-td-cell.editing {
+    border: 1px solid var(--tx-primary);
+}
+
+.grade-cell-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 36px;
+    border-radius: 0;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--tx-primary);
+    font-family: inherit;
+    transition: all 0s;
+}
+
+.grade-cell-btn:hover {
+    background: var(--tx-primary);
+    color: var(--bg-base);
+}
+
+.grade-empty-marker {
+    color: var(--tx-disabled);
+    font-weight: 300;
+}
+
+.grade-cell-input {
+    width: 100%;
+    height: 36px;
+    background: var(--bg-base);
+    border: 2px solid var(--tx-primary);
+    padding: 0 var(--sp-2);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--tx-primary);
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+}
+
+/* Context menu */
+.context-menu {
+    position: fixed;
+    background: var(--bg-surface);
+    border: 2px solid var(--bd-strong);
+    padding: var(--sp-1);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.1);
+    /* hard shadow */
+    z-index: 500;
+    min-width: 180px;
+}
+
+[data-theme='dark'] .context-menu {
+    box-shadow: 4px 4px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.context-item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    padding: var(--sp-2) var(--sp-3);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--tx-primary);
+    text-align: left;
+    transition: all 0s;
+}
+
+.context-item:hover {
+    background: var(--tx-primary);
+    color: var(--bg-base);
+}
+
+.context-item:hover svg {
+    stroke: var(--bg-base);
+}
+
+.context-item-danger {
+    color: var(--clr-danger);
+}
+
+.context-item-danger:hover {
+    background: var(--clr-danger);
+    color: white;
+}
+
+/* Summary columns */
+.summary-th {
+    background: var(--bg-surface-2);
+}
+
+.summary-th-divider,
+.summary-td-divider {
+    border-left: 2px solid var(--bd-strong) !important;
+}
+
+.summary-td {
+    text-align: center;
+    padding: var(--sp-1) var(--sp-3);
+    background: var(--bg-surface-2);
+}
+
+.summary-value {
+    font-weight: 800;
+    font-size: 0.95rem;
+    font-family: 'Archivo', system-ui, sans-serif;
+}
+
+.summary-jumlah {
+    color: var(--tx-secondary);
+}
+
+.summary-rata {
+    color: var(--tx-primary);
+}
+
+/* Rank */
+.summary-rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-weight: 800;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.9rem;
+    color: var(--tx-muted);
+}
+
+.rank-top {
+    color: var(--tx-primary);
+    padding: 2px 8px;
+    border: 2px solid var(--tx-primary);
+}
+
+.rank-1 {
+    background: var(--tx-primary);
+    color: var(--bg-base);
+}

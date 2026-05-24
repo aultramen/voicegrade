@@ -1,0 +1,7 @@
+# .cargo/config.toml
+# Use lld-link (MSVC-compatible LLVM linker) to avoid needing Visual Studio link.exe
+# lld-link.exe is created as a copy of rust-lld.exe (bundled with rustup)
+
+[target.x86_64-pc-windows-msvc]
+linker = "lld-link"
+rustflags = ["-C", "linker-flavor=lld-link"]

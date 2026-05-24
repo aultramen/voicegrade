@@ -1,0 +1,47 @@
+/* ── MicButton ────────────────────────────────────────────── */
+.mic-btn {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--bd-strong);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    color: var(--tx-primary);
+    transition: all 0s;
+    flex-shrink: 0;
+}
+
+.mic-btn:hover:not(.mic-btn-disabled) {
+    background: var(--clr-primary);
+    border-color: var(--bd-strong);
+    color: white;
+}
+
+.mic-btn-active {
+    background: var(--tx-primary);
+    border-color: var(--tx-primary);
+    color: var(--bg-base);
+}
+
+.mic-btn-active:hover:not(.mic-btn-disabled) {
+    background: var(--tx-secondary);
+    border-color: var(--tx-secondary);
+    color: var(--bg-base);
+}
+
+.mic-btn-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.mic-btn-icon {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

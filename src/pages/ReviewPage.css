@@ -1,0 +1,23 @@
+/* ── Review Page ─────────────────────────────────────────── */
+.review-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-base);
+}
+
+.review-content {
+    flex: 1;
+    overflow: auto;
+}
+
+.review-stats {
+    font-size: 0.78rem;
+    color: var(--tx-muted);
+    margin-top: 2px;
+}
+
+.review-completion {
+    color: var(--clr-primary);
+    font-weight: 600;
+}
